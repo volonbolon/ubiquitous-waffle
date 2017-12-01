@@ -13,6 +13,8 @@
 		B0E287571FD1AD0400AB827A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0E287561FD1AD0400AB827A /* Assets.xcassets */; };
 		B0E2875A1FD1AD0400AB827A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E287581FD1AD0400AB827A /* LaunchScreen.storyboard */; };
 		B0E287651FD1AD0400AB827A /* SampleCameraFrameworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E287641FD1AD0400AB827A /* SampleCameraFrameworkTests.swift */; };
+		B0E287861FD1C79900AB827A /* CameraFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0E287811FD1C75A00AB827A /* CameraFramework.framework */; };
+		B0E287871FD1C79900AB827A /* CameraFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B0E287811FD1C75A00AB827A /* CameraFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -25,6 +27,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		B0E287881FD1C79A00AB827A /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				B0E287871FD1C79900AB827A /* CameraFramework.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		B0E2874C1FD1AD0400AB827A /* SampleCameraFramework.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleCameraFramework.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0E2874F1FD1AD0400AB827A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -36,6 +52,7 @@
 		B0E287601FD1AD0400AB827A /* SampleCameraFrameworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SampleCameraFrameworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0E287641FD1AD0400AB827A /* SampleCameraFrameworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleCameraFrameworkTests.swift; sourceTree = "<group>"; };
 		B0E287661FD1AD0400AB827A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B0E287811FD1C75A00AB827A /* CameraFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CameraFramework.framework; path = "../../../../Library/Developer/Xcode/DerivedData/CameraWorkspace_-egjinehbrutsvnfrrptkrtrqcjjp/Build/Products/Debug-iphoneos/CameraFramework.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0E287861FD1C79900AB827A /* CameraFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +77,7 @@
 		B0E287431FD1AD0400AB827A = {
 			isa = PBXGroup;
 			children = (
+				B0E287801FD1C71100AB827A /* Frameworks */,
 				B0E2874E1FD1AD0400AB827A /* SampleCameraFramework */,
 				B0E287631FD1AD0400AB827A /* SampleCameraFrameworkTests */,
 				B0E2874D1FD1AD0400AB827A /* Products */,
@@ -96,6 +115,14 @@
 			path = SampleCameraFrameworkTests;
 			sourceTree = "<group>";
 		};
+		B0E287801FD1C71100AB827A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B0E287811FD1C75A00AB827A /* CameraFramework.framework */,
+			);
+			path = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -106,6 +133,7 @@
 				B0E287481FD1AD0400AB827A /* Sources */,
 				B0E287491FD1AD0400AB827A /* Frameworks */,
 				B0E2874A1FD1AD0400AB827A /* Resources */,
+				B0E287881FD1C79A00AB827A /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
