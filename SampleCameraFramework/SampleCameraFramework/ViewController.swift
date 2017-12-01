@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         let camera = CameraViewController()
+        camera.position = CameraPosition.back
         self.present(camera, animated: true, completion: nil)
     }
 
