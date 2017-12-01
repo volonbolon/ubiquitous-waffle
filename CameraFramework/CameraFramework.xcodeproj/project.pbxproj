@@ -10,6 +10,7 @@
 		B0E287321FD1AAF300AB827A /* CameraFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0E287281FD1AAF200AB827A /* CameraFramework.framework */; };
 		B0E287371FD1AAF300AB827A /* CameraFrameworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E287361FD1AAF300AB827A /* CameraFrameworkTests.swift */; };
 		B0E287391FD1AAF300AB827A /* CameraFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E2872B1FD1AAF200AB827A /* CameraFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B0E2878A1FD1C86C00AB827A /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E287891FD1C86C00AB827A /* CameraViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +30,7 @@
 		B0E287311FD1AAF300AB827A /* CameraFrameworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CameraFrameworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0E287361FD1AAF300AB827A /* CameraFrameworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraFrameworkTests.swift; sourceTree = "<group>"; };
 		B0E287381FD1AAF300AB827A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B0E287891FD1C86C00AB827A /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 			children = (
 				B0E2872B1FD1AAF200AB827A /* CameraFramework.h */,
 				B0E2872C1FD1AAF200AB827A /* Info.plist */,
+				B0E287891FD1C86C00AB827A /* CameraViewController.swift */,
 			);
 			path = CameraFramework;
 			sourceTree = "<group>";
@@ -149,6 +152,7 @@
 				TargetAttributes = {
 					B0E287271FD1AAF200AB827A = {
 						CreatedOnToolsVersion = 9.1;
+						LastSwiftMigration = 0910;
 						ProvisioningStyle = Automatic;
 					};
 					B0E287301FD1AAF300AB827A = {
@@ -214,6 +218,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0E2878A1FD1C86C00AB827A /* CameraViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,6 +357,7 @@
 		B0E2873D1FD1AAF300AB827A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -365,6 +371,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = VolonBolon.CameraFramework;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -373,6 +380,7 @@
 		B0E2873E1FD1AAF300AB827A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -394,6 +402,7 @@
 		B0E287401FD1AAF300AB827A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L5262XM8UA;
 				INFOPLIST_FILE = CameraFrameworkTests/Info.plist;
@@ -408,6 +417,7 @@
 		B0E287411FD1AAF300AB827A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L5262XM8UA;
 				INFOPLIST_FILE = CameraFrameworkTests/Info.plist;
