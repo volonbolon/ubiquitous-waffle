@@ -14,7 +14,12 @@ public enum CameraPosition {
     case back
 }
 
+protocol CameraDelegate: class {
+    func stillImageCaptured(camera: Camera, image: UIImage)
+}
+
 class Camera: NSObject {
+    weak var delegate: CameraDelegate?
     var position = CameraPosition.back {
         didSet {
             if self.session.isRunning {
@@ -52,6 +57,12 @@ class Camera: NSObject {
         }
 
         return nil
+    }
+
+    func captureStillImage() {
+        if let delegate = self.delegate {
+            delegate.stillImageCaptured(camera: self, image: UIImage())
+        }
     }
 
     func update() {

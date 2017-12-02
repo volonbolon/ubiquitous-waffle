@@ -33,7 +33,7 @@ public final class CameraViewController: UIViewController {
         let title = NSLocalizedString("Cancel", comment: "Cancel")
         button.setTitle(title, for: UIControlState.normal)
 
-        button.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(cancelButtonTapped), for: UIControlEvents.touchUpInside)
         self._cancelButton = button
         return button
     }
@@ -46,6 +46,7 @@ public final class CameraViewController: UIViewController {
         let bundle = Bundle(for: CameraViewController.self)
         let image = UIImage(named: "trigger", in: bundle, compatibleWith: nil)
         button.setImage(image, for: UIControlState.normal)
+        button.addTarget(self, action: #selector(shutterButtonTapped), for: UIControlEvents.touchUpInside)
         self._shutterButton = button
 
         return button
@@ -54,7 +55,9 @@ public final class CameraViewController: UIViewController {
 
     public init() {
         super.init(nibName: nil, bundle: nil)
-        self.camera = Camera(with: self)
+        let camera = Camera(with: self)
+        self.camera = camera
+        camera.delegate = self
     }
 
     required public init?(coder aDecoder: NSCoder) {
@@ -140,5 +143,18 @@ fileprivate extension CameraViewController {
         if let delegate = self.delegate {
             delegate.cancelButtonTapped(controller: self)
         }
+    }
+
+    @IBAction func shutterButtonTapped(sender: UIButton) {
+        if let camera = self.camera {
+            camera.captureStillImage()
+        }
+    }
+}
+
+// MARK: - CAmera Delegate functions
+extension CameraViewController: CameraDelegate {
+    func stillImageCaptured(camera: Camera, image: UIImage) {
+        print("Camera button tapped")
     }
 }
