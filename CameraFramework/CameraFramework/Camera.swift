@@ -42,7 +42,7 @@ class Camera: NSObject {
      - parameter session: A discovery session to fetch the required device
      - returns: the available device for the capture session
      */
-    private func getDevice(with position:AVCaptureDevice.Position) -> AVCaptureDevice? {
+    private func getDevice(with position: AVCaptureDevice.Position) -> AVCaptureDevice? {
         guard let discoverySession = self.discoverySession else {
             return nil
         }

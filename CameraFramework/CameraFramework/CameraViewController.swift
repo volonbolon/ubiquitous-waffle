@@ -10,6 +10,7 @@ import UIKit
 import AVFoundation
 
 public final class CameraViewController: UIViewController {
+    var previewLayer: AVCaptureVideoPreviewLayer?
     fileprivate var camera: Camera?
     open var position: CameraPosition = .back {
         didSet {
@@ -37,7 +38,10 @@ public final class CameraViewController: UIViewController {
         self.createUI()
         camera.update()
     }
+}
 
+//
+fileprivate extension CameraViewController {
     /**
      Loads the camera view finder
      */
@@ -45,6 +49,7 @@ public final class CameraViewController: UIViewController {
         guard let previewLayer = self.camera?.getPreviewLayer() else {
             return
         }
+        self.previewLayer = previewLayer
         self.view.layer.addSublayer(previewLayer)
     }
 }
