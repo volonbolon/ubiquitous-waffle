@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         let camera = CameraViewController()
+        camera.delegate = self
         camera.position = CameraPosition.back
         self.present(camera, animated: true, completion: nil)
     }
@@ -26,7 +27,10 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
 
+extension ViewController: CameraControllerDelegate {
+    func cancelButtonTapped(controller: CameraViewController) {
+        self.dismiss(animated: true, completion: nil)
+    }
+}
