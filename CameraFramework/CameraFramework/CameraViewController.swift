@@ -29,16 +29,25 @@ public final class CameraViewController: UIViewController {
         if let currentButton = self._cancelButton {
             return currentButton
         }
-        let x = self.view.frame.minX + 10
-        let y = self.view.frame.maxY - 50
-        let frame = CGRect(x: x, y: y, width: 70, height: 30)
-        let button = UIButton(frame: frame)
-
+        let button = UIButton()
         let title = NSLocalizedString("Cancel", comment: "Cancel")
-        button.setTitle(title, for: .normal)
+        button.setTitle(title, for: UIControlState.normal)
 
         button.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
         self._cancelButton = button
+        return button
+    }
+    private var _shutterButton: UIButton?
+    var shutterButton: UIButton {
+        if let shutterButton = self._shutterButton {
+            return shutterButton
+        }
+        let button = UIButton()
+        let bundle = Bundle(for: CameraViewController.self)
+        let image = UIImage(named: "trigger", in: bundle, compatibleWith: nil)
+        button.setImage(image, for: UIControlState.normal)
+        self._shutterButton = button
+
         return button
     }
     open weak var delegate: CameraControllerDelegate?
@@ -83,6 +92,7 @@ fileprivate extension CameraViewController {
         self.view.layer.addSublayer(previewLayer)
 
         self.view.addSubview(self.cancelButton)
+        self.view.addSubview(self.shutterButton)
     }
 
     func updateUI(orientation: UIInterfaceOrientation) {
@@ -104,11 +114,23 @@ fileprivate extension CameraViewController {
         }
     }
 
-    func updateButtonFrames() {
+    private func updateCancelButtonFrame() {
         let x = self.view.frame.minX + 10
         let y = self.view.frame.maxY - 50
         let frame = CGRect(x: x, y: y, width: 70, height: 30)
         self.cancelButton.frame = frame
+    }
+
+    private func updateShutterButtonFrame() {
+        let x = self.view.frame.midX - 35
+        let y = self.view.frame.maxY - 80
+        let frame = CGRect(x: x, y: y, width: 70, height: 70)
+        self.shutterButton.frame = frame
+    }
+
+    func updateButtonFrames() {
+        self.updateCancelButtonFrame()
+        self.updateShutterButtonFrame()
     }
 }
 

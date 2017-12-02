@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B02745041FD369C20075402C /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B02745031FD369C20075402C /* Media.xcassets */; };
 		B04151D61FD2E2B20029290B /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04151D51FD2E2B20029290B /* Camera.swift */; };
 		B0E287321FD1AAF300AB827A /* CameraFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0E287281FD1AAF200AB827A /* CameraFramework.framework */; };
 		B0E287371FD1AAF300AB827A /* CameraFrameworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E287361FD1AAF300AB827A /* CameraFrameworkTests.swift */; };
@@ -25,6 +26,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B02745031FD369C20075402C /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		B04151D51FD2E2B20029290B /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		B0E287281FD1AAF200AB827A /* CameraFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CameraFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0E2872B1FD1AAF200AB827A /* CameraFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraFramework.h; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				B0E2872B1FD1AAF200AB827A /* CameraFramework.h */,
+				B02745031FD369C20075402C /* Media.xcassets */,
 				B0E2872C1FD1AAF200AB827A /* Info.plist */,
 				B0E287891FD1C86C00AB827A /* CameraViewController.swift */,
 				B04151D51FD2E2B20029290B /* Camera.swift */,
@@ -187,6 +190,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B02745041FD369C20075402C /* Media.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
