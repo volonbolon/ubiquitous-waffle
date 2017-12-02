@@ -9,6 +9,10 @@
 import UIKit
 import AVFoundation
 
+public protocol CameraControllerDelegate: class {
+    func cancelButtonTapped(controller: CameraViewController)
+}
+
 public final class CameraViewController: UIViewController {
     var previewLayer: AVCaptureVideoPreviewLayer?
     fileprivate var camera: Camera?
@@ -20,6 +24,24 @@ public final class CameraViewController: UIViewController {
             camera.position = position
         }
     }
+    private var _cancelButton: UIButton?
+    var cancelButton: UIButton {
+        if let currentButton = self._cancelButton {
+            return currentButton
+        }
+        let x = self.view.frame.minX + 10
+        let y = self.view.frame.maxY - 50
+        let frame = CGRect(x: x, y: y, width: 70, height: 30)
+        let button = UIButton(frame: frame)
+
+        let title = NSLocalizedString("Cancel", comment: "Cancel")
+        button.setTitle(title, for: .normal)
+
+        button.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
+        self._cancelButton = button
+        return button
+    }
+    open weak var delegate: CameraControllerDelegate?
 
     public init() {
         super.init(nibName: nil, bundle: nil)
@@ -40,7 +62,7 @@ public final class CameraViewController: UIViewController {
     }
 }
 
-//
+// MARK: - Loads UI
 fileprivate extension CameraViewController {
     /**
      Loads the camera view finder
@@ -51,5 +73,16 @@ fileprivate extension CameraViewController {
         }
         self.previewLayer = previewLayer
         self.view.layer.addSublayer(previewLayer)
+
+        self.view.addSubview(self.cancelButton)
+    }
+}
+
+// MARK: - IBActions
+fileprivate extension CameraViewController {
+    @IBAction func cancelButtonTapped(sender: UIButton) {
+        if let delegate = self.delegate {
+            delegate.cancelButtonTapped(controller: self)
+        }
     }
 }
