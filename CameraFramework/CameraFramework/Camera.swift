@@ -38,11 +38,58 @@ class Camera: NSObject {
     }
     var videoInput: AVCaptureDeviceInput?
     var videoOutput = AVCaptureVideoDataOutput()
+    var photoOutput = AVCapturePhotoOutput()
 
     required init(with controller: CameraViewController) {
         self.controller = controller
     }
 
+    func captureStillImage() {
+        let settings = AVCapturePhotoSettings()
+        self.photoOutput.capturePhoto(with: settings, delegate: self)
+    }
+
+    func update() {
+        self.recycleDeviceIO()
+        guard let input = self.getNewInputDevice() else {
+            return
+        }
+        let canAddInput = self.session.canAddInput(input)
+        let canAddOutput = self.session.canAddOutput(self.videoOutput)
+        let canAddPhotoOutput = self.session.canAddOutput(self.photoOutput)
+
+        guard canAddInput, canAddOutput, canAddPhotoOutput else {
+            return
+        }
+        self.videoInput = input
+
+        self.session.addInput(input)
+        self.session.addOutput(self.videoOutput)
+        self.session.addOutput(self.photoOutput)
+
+        self.session.commitConfiguration()
+
+        self.session.startRunning()
+    }
+
+    /**
+     - parameter session: A discovery session to fetch the required device
+     - returns: the viewfinder
+     */
+    func getPreviewLayer() -> AVCaptureVideoPreviewLayer? {
+        guard let controller = self.controller else {
+            return nil
+        }
+        let previewLayer = AVCaptureVideoPreviewLayer(session: self.session)
+        previewLayer.frame = controller.view.bounds
+        previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
+
+        return previewLayer
+    }
+}
+
+// MARK: - CaptureDevice Handling
+private extension Camera {
     /**
      - parameter session: A discovery session to fetch the required device
      - returns: the available device for the capture session
@@ -59,52 +106,64 @@ class Camera: NSObject {
         return nil
     }
 
-    func captureStillImage() {
-        if let delegate = self.delegate {
-            delegate.stillImageCaptured(camera: self, image: UIImage())
-        }
-    }
-
-    func update() {
-        if let currentInput = self.videoInput {
-            self.session.removeInput(currentInput)
-            self.session.removeOutput(self.videoOutput)
-        }
+    func getNewInputDevice() -> AVCaptureDeviceInput? {
         do {
             let position = self.position == .front ? AVCaptureDevice.Position.front : AVCaptureDevice.Position.back
             guard let device = self.getDevice(with: position) else {
-                return
+                return nil
             }
             let input = try AVCaptureDeviceInput(device: device)
-            let canAddInput = self.session.canAddInput(input)
-            let canAddOutput = self.session.canAddOutput(self.videoOutput)
-            if canAddInput && canAddOutput {
-                self.videoInput = input
-
-                self.session.addInput(input)
-                self.session.addOutput(self.videoOutput)
-
-                self.session.commitConfiguration()
-
-                self.session.startRunning()
-            }
+            return input
         } catch {
-            print("Unable to update the session")
+            return nil
         }
     }
 
-    /**
-     - parameter session: A discovery session to fetch the required device
-     - returns: the viewfinder
-     */
-    func getPreviewLayer() -> AVCaptureVideoPreviewLayer? {
-        guard let controller = self.controller else {
+    func recycleDeviceIO() {
+        for oldInput in self.session.inputs {
+            self.session.removeInput(oldInput)
+        }
+        for oldOutput in self.session.outputs {
+            self.session.removeOutput(oldOutput)
+        }
+    }
+}
+
+// MARK: - Still Photo Capture
+extension Camera: AVCapturePhotoCaptureDelegate {
+    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+        guard let image = photo.normalizedImage(forCameraPosition: self.position) else {
+            return
+        }
+        if let delegate = self.delegate {
+            delegate.stillImageCaptured(camera: self, image: image)
+        }
+    }
+}
+
+extension AVCapturePhoto {
+    func normalizedImage(forCameraPosition position: CameraPosition) -> UIImage? {
+        guard let cgImage = self.cgImageRepresentation() else {
             return nil
         }
-        let previewLayer = AVCaptureVideoPreviewLayer(session: self.session)
-        previewLayer.frame = controller.view.bounds
-        previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
+        let imageOrientation = self.getImageOrientation(forCamera: position)
+        let image = UIImage(cgImage: cgImage.takeUnretainedValue(), scale: 1.0, orientation: imageOrientation)
+        return image
+    }
 
-        return previewLayer
+    private func getImageOrientation(forCamera: CameraPosition) -> UIImageOrientation {
+        var orientation: UIImageOrientation
+        let appOrientation = UIApplication.shared.statusBarOrientation
+        switch appOrientation {
+        case .landscapeLeft:
+            orientation = forCamera == .back ? .down : .upMirrored
+        case .landscapeRight:
+            orientation = forCamera == .back ? .up : .downMirrored
+        case .portraitUpsideDown:
+            orientation = forCamera == .back ? .left : .rightMirrored
+        case .portrait, .unknown:
+            orientation = forCamera == .back ? .right : .leftMirrored
+        }
+        return orientation
     }
 }
