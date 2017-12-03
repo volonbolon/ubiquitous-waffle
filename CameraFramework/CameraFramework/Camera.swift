@@ -29,7 +29,6 @@ class Camera: NSObject {
             }
         }
     }
-    var controller: CameraViewController?
     fileprivate var session = AVCaptureSession()
     fileprivate var discoverySession: AVCaptureDevice.DiscoverySession? {
         return AVCaptureDevice.DiscoverySession(deviceTypes: [AVCaptureDevice.DeviceType.builtInWideAngleCamera],
@@ -39,10 +38,6 @@ class Camera: NSObject {
     var videoInput: AVCaptureDeviceInput?
     var videoOutput = AVCaptureVideoDataOutput()
     var photoOutput = AVCapturePhotoOutput()
-
-    required init(with controller: CameraViewController) {
-        self.controller = controller
-    }
 
     func captureStillImage() {
         let settings = AVCapturePhotoSettings()
@@ -77,13 +72,8 @@ class Camera: NSObject {
      - returns: the viewfinder
      */
     func getPreviewLayer() -> AVCaptureVideoPreviewLayer? {
-        guard let controller = self.controller else {
-            return nil
-        }
         let previewLayer = AVCaptureVideoPreviewLayer(session: self.session)
-        previewLayer.frame = controller.view.bounds
         previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
-
         return previewLayer
     }
 }
