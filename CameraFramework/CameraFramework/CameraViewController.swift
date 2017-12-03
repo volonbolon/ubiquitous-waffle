@@ -154,6 +154,17 @@ fileprivate extension CameraViewController {
     }
 }
 
+// MARK: - Semantic Version
+public extension CameraViewController {
+    public class var versionNumber: String? {
+        let bundle = Bundle(for: CameraViewController.self)
+        guard let info = bundle.infoDictionary, let versionString = info["CFBundleShortVersionString"] as? String else {
+            return nil
+        }
+        return versionString
+    }
+}
+
 // MARK: - CAmera Delegate functions
 extension CameraViewController: CameraDelegate {
     func stillImageCaptured(camera: Camera, image: UIImage) {
